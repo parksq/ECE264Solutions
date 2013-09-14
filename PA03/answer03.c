@@ -131,7 +131,7 @@ void sort(int * arr, int length)
   int left = 1;
   int right = (length-1);
   void sorthelp(int*,int,int);
-  while(left<right)
+  while(left<right) //sorts the initial array
   {  
     while ((arr[left]<pivot) & (left < length))
     {
@@ -166,7 +166,7 @@ void sorthelp(int * arr, int left, int right)
   if (left != right)
   {
   left++;
-  while(left<=right)
+  while(left<=right) //sorts the current array
     {
       while ((arr[left]<pivot) & (left <= ind2))
       {
