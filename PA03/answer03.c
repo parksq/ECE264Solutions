@@ -75,7 +75,7 @@ int * readIntegers(const char * filename, int * numberOfIntegers)
     count++;
   }
   int * arr;
-  arr = malloc(sizeof(int)*count);
+  arr = malloc(sizeof(int)*count+4);
   *numberOfIntegers = count;
   fseek(file,0,SEEK_SET);
   int i = 0;
@@ -133,15 +133,15 @@ void sort(int * arr, int length)
   void sorthelp(int*,int,int);
   while(left<right)
   {  
-    while (arr[left]<pivot)
+    while ((arr[left]<pivot) & (left < length))
     {
       left++;
     }
-    while(arr[right]>pivot)
+    while((arr[right]>pivot) & (right > -1))
     {
       right--;
     }
-    if (left>right)
+    if (left>right || left==length-1)
     {
       temp = arr[left-1];
       arr[left-1] = pivot;
@@ -166,17 +166,17 @@ void sorthelp(int * arr, int left, int right)
   if (left != right)
   {
   left++;
-  while(left<right)
+  while(left<=right)
     {
-      while (arr[left]<pivot)
+      while ((arr[left]<pivot) & (left <= ind2))
       {
         left++;
       }
-      while(arr[right]>pivot)
+      while((arr[right]>pivot) & (right > ind1))
       {
         right--;
       }
-      if (left>right)
+      if (left>right || left==ind2)
       {
         temp = arr[left-1];
         arr[left-1] = arr[ind1];
@@ -253,7 +253,7 @@ int searchhelp(int * arr, int low, int high, int key)
   {
     int i = (low+high)/2;
     if (arr[i] == key)
-    {
+    { 
       return i;
     }
     else
