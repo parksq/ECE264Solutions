@@ -42,7 +42,7 @@ void partition(int * arr,int n, int ind)
 {
   int val;
   int i;
-  if (n == 0)
+  if (n == 0) //prints results
   {
     printf("= %d",arr[0]);
     for (i = 1; i < ind; i++)
@@ -51,10 +51,10 @@ void partition(int * arr,int n, int ind)
     }
     printf("\n");
   }
-  for (val = 1; val <= n; val++)
+  for (val = 1; val <= n; val++) //recursive function
   {
-    arr[ind] = val;
-    partition(arr, n - val, ind + 1);
+    arr[ind] = val; //defines the first term
+    partition(arr, n - val, ind + 1); //partitions the rest
   }
 }
 /*
