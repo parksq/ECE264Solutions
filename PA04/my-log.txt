@@ -1,0 +1,59 @@
+commit 868f644f3a5d1cd6dc823e00e88e400cf06dc1a3
+Author: parksq <parksq@purude.edu>
+Date:   Fri Sep 20 08:28:49 2013 -0400
+
+    	modified:   answer04.c
+            performed final check
+            commented the file
+
+commit dd337abf0448a7addb1f0837e5690c5b13ab2468
+Author: parksq <parksq@purude.edu>
+Date:   Thu Sep 19 23:00:14 2013 -0400
+
+    	modified:   answer04.c
+            coded all secondary functions
+
+commit ee40c693b32be14909785c64347856628f0892f5
+Author: parksq <parksq@purude.edu>
+Date:   Thu Sep 19 20:16:05 2013 -0400
+
+    	new file:   answer04.c
+            PartitionAll is working
+
+commit 635dfea9d5fe743b9ee2aa5da32f5ffe6ccf4b22
+Author: parksq <parksq@purude.edu>
+Date:   Fri Sep 13 20:29:48 2013 -0400
+
+    	modified:   answer03.c
+            performed final check and commented code
+
+commit 56ac87881667422b8459147b05d5985735b75203
+Author: parksq <parksq@purude.edu>
+Date:   Fri Sep 13 20:27:51 2013 -0400
+
+    	modified:   answer03.c
+            fixed problem with sort function
+
+commit bf92325f6afd1f6949b1b1f344d6929f94c13195
+Author: parksq <parksq@purude.edu>
+Date:   Fri Sep 13 18:02:41 2013 -0400
+
+    	new file:   answer03.c
+
+commit 8117c110dcca54426e3b417bd0333b452840dc6c
+Author: parksq <parksq@purude.edu>
+Date:   Fri Sep 6 16:29:03 2013 -0400
+
+    	new file:   answer02.c
+
+commit 1fd919a6ddd27fe947a0cb00005fb99a9c4f9318
+Author: parksq <parksq@purude.edu>
+Date:   Tue Aug 27 20:42:21 2013 -0400
+
+    commited PA01
+
+commit ec00a940411f2993c5601ebf7b28dd8b206297d0
+Author: parksq <parksq@purdue.edu>
+Date:   Mon Aug 26 18:58:49 2013 -0700
+
+    Initial commit
