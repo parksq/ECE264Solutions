@@ -32,7 +32,7 @@
 void partitionAll(int n)
 {
   void partition(int*,int,int);
-  int * arr[MAXLENGTH];
+  int arr[MAXLENGTH];
   partition(arr,n,0);
   printf("partitionAll %d\n", n);
   
@@ -79,13 +79,13 @@ void partition(int * arr,int n, int ind)
 
 void partitionIncreasing(int n)
 {
-  void partitionInc(int*,int,int);
-  int * arr[MAXLENGTH];
-  partitionInc(arr,n,0);
+  void partitionInc(int*,int,int,int);
+  int arr[MAXLENGTH];
+  partitionInc(arr,n,0,0);
   printf("partitionIncreasing %d\n", n);
 }
 
-void partitionInc(int * arr,int n, int ind)
+void partitionInc(int * arr,int n, int ind, int start)
 {
   int val;
   int i;
@@ -98,14 +98,14 @@ void partitionInc(int * arr,int n, int ind)
     }
     printf("\n");
   }
-  if ()
-  {
     for (val = 1; val <= n; val++)
     {
-      arr[ind] = val;
-      partition(arr, n - val, ind + 1);
+      if (val > start)
+      {
+        arr[ind] = val;
+        partitionInc(arr, n - val, ind + 1,val);
+      }
     }
-  }
 }
 
 /*
@@ -128,11 +128,35 @@ void partitionInc(int * arr,int n, int ind)
  */
 
 
-void partitionDecreasing(int value)
+void partitionDecreasing(int n)
 {
-  printf("partitionDecreasing %d\n", value);
-  
+  void partitionDec(int*,int,int,int);
+  int arr[MAXLENGTH];
+  partitionDec(arr,n,0,n+1);
+  printf("partitionDecreasing %d\n", n);
+}
 
+void partitionDec(int * arr,int n, int ind, int start)
+{
+  int val;
+  int i;
+  if (n == 0)
+  {
+    printf("= %d",arr[0]);
+    for (i = 1; i < ind; i++)
+    {
+      printf(" + %d", arr[i]);
+    }
+    printf("\n");
+  }
+    for (val = 1; val <= n; val++)
+    {
+      if (val < start)
+      {
+        arr[ind] = val;
+        partitionDec(arr, n - val, ind + 1,val);
+      }
+    }
 }
 
 /*
@@ -153,11 +177,37 @@ void partitionDecreasing(int value)
  */
 
 
-void partitionOdd(int value)
+void partitionOdd(int n)
 {
-  printf("partitionOdd %d\n", value);
-  
+  void partitionO(int*,int,int);
+  int arr[MAXLENGTH];
+  partitionO(arr,n,0);
+  printf("partitionOdd %d\n", n);
 }
+
+void partitionO(int * arr,int n, int ind)
+{
+  int val;
+  int i;
+  if (n == 0)
+  {
+    printf("= %d",arr[0]);
+    for (i = 1; i < ind; i++)
+    {
+      printf(" + %d", arr[i]);
+    }
+    printf("\n");
+  }
+    for (val = 1; val <= n; val++)
+    {
+      if (val%2)
+      {
+        arr[ind] = val;
+        partitionO(arr, n - val, ind + 1);
+      }
+    }
+}
+
 
 /*
  * =================================================================
@@ -178,11 +228,38 @@ void partitionOdd(int value)
  * generates invalid partitions and checks validity before printing.
  */
 
-void partitionEven(int value)
+void partitionEven(int n)
 {
-  printf("partitionEven %d\n", value);
+  void partitionE(int*,int,int);
+  int arr[MAXLENGTH];
+  partitionE(arr,n,0);
+  printf("partitionEven %d\n", n);
 
 }
+
+void partitionE(int * arr,int n, int ind)
+{
+  int val;
+  int i;
+  if (n == 0)
+  {
+    printf("= %d",arr[0]);
+    for (i = 1; i < ind; i++)
+    {
+      printf(" + %d", arr[i]);
+    }
+    printf("\n");
+  }
+    for (val = 1; val <= n; val++)
+    {
+      if ((val+1)%2)
+      {
+        arr[ind] = val;
+        partitionE(arr, n - val, ind + 1);
+      }
+    }
+}
+
 
 /*
  * =================================================================
@@ -203,11 +280,38 @@ void partitionEven(int value)
  */
 
 
-void partitionOddAndEven(int value)
+void partitionOddAndEven(int n)
 {
-  printf("partitionOddAndEven %d\n", value);
+  void partitionOE(int*,int,int,int);
+  int arr[MAXLENGTH];
+  partitionOE(arr,n,0,0);
+  printf("partitionOddAndEven %d\n", n);
   
 }
+
+void partitionOE(int * arr,int n, int ind,int start)
+{
+  int val;
+  int i;
+  if (n == 0)
+  {
+    printf("= %d",arr[0]);
+    for (i = 1; i < ind; i++)
+    {
+      printf(" + %d", arr[i]);
+    }
+    printf("\n");
+  }
+    for (val = 1; val <= n; val++)
+    {
+      if (((start%2) & (val+1%2)) | ((start+1%2) & val%2))
+      {
+        arr[ind] = val;
+        partitionOE(arr, n - val, ind + 1, val);
+      }
+    }
+}
+
 
 /*
  * =================================================================
@@ -227,8 +331,50 @@ void partitionOddAndEven(int value)
 
 
 
-void partitionPrime(int value)
+void partitionPrime(int n)
 {
-  printf("partitionPrime %d\n", value);
-
+  int IsPrime(int);
+  void partitionP(int*,int,int);
+  int arr[MAXLENGTH];
+  partitionP(arr,n,0);
+  printf("partitionPrime %d\n", n);
 }
+
+int IsPrime(int n)
+{
+  int i;
+  if (n == 1)
+    return(0);
+  for (i = 2; i < n; i++)
+  {
+    if (n%i == 0)
+    {
+      return(0);
+    }
+  }
+  return(1);
+}
+
+void partitionP(int * arr,int n, int ind)
+{
+  int val;
+  int i;
+  if (n == 0)
+  {
+    printf("= %d",arr[0]);
+    for (i = 1; i < ind; i++)
+    {
+      printf(" + %d", arr[i]);
+    }
+    printf("\n");
+  }
+    for (val = 1; val <= n; val++)
+    {
+      if (IsPrime(val))
+      {
+        arr[ind] = val;
+        partitionP(arr, n - val, ind + 1);
+      }
+    }
+}
+
