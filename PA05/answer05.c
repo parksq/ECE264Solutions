@@ -65,6 +65,7 @@ int * readInteger(char * filename, int * numInteger)
 {
   int size = 0;
   int temp;
+  printf("mytest1");
   FILE * file;
   file = fopen(filename,"r");
   if (file == NULL)
@@ -292,6 +293,18 @@ int saveInteger(char * filename, int * arrInteger, int numInteger)
 
 int saveString(char * filename, char * * arrString, int numString)
 {
+  int i;
+  FILE * file;
+  file = fopen(filename,"w");
+  if (file == NULL)
+  {
+    return 0;
+  }
+  for (i=0;i<numString;i++)
+  {
+    fprintf(file,"%s",arrString[i]);
+  }
+  return 1;
 }
 
 /* ----------------------------------------------- */
@@ -304,8 +317,14 @@ int saveString(char * filename, char * * arrString, int numString)
 
 void sortInteger(int * arrInteger, int numInteger)
 {
+  int compint(const void *,const void *);
+  qsort(arrInteger,numInteger,sizeof(int),compint);
 }
 
+int compint(const void * p1, const void * p2)
+{
+  return (*(int*)p1 - *(int*)p2);
+}
 
 /* ----------------------------------------------- */
 /*
@@ -320,6 +339,12 @@ void sortInteger(int * arrInteger, int numInteger)
 
 void sortString(char * * arrString, int numString)
 {
+  int compstr(const void *, const void *);
+  qsort(arrString,numString,sizeof(char),compstr);
 }
 
+int compstr(const void * s1, const void * s2)
+{
+  return (*(char*)s1 - *(char*)s2);
+}
 
