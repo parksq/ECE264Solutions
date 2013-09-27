@@ -71,19 +71,21 @@ int * readInteger(char * filename, int * numInteger)
   {
     return NULL;
   }
-  while(fscanf("%d",&temp))
+  while(fscanf(file,"%d",&temp))
   {
     size++;
   }
-  int * arr;
-  arr = malloc(size * sizeof(int));
+  int * intarr;
+  intarr = malloc(size * sizeof(int));
   fseek(file,0,SEEK_SET);
   int i = 0;
-  while (fscanf("%d",&arr[i]))
+  while (fscanf(file,"%d",&intarr[i]))
   {
     i++;
   }
-  numInteger = size;
+  *numInteger = size;
+  fclose(file);
+  return(intarr);
 }
 
 /* ----------------------------------------------- */
@@ -154,6 +156,33 @@ int * readInteger(char * filename, int * numInteger)
 
 char * * readString(char * filename, int * numString)
 {
+  int size = 0;
+  char buf[MAXIMUM_LENGTH];
+  FILE * file;
+  file = fopen(filename,"r");
+  if (file == NULL)
+  {
+    return NULL;
+  }
+  while (fgets(buf,MAXIMUM_LENGTH,file))
+  {
+    size++;
+  }
+  *numString = size;
+  char * * strarr = malloc(sizeof(char*)*size);
+  if (fscanf(file,"%s",buf) == 0)
+  {
+    return NULL;
+  }
+  int i = 0;
+  while (fscanf(file,"%s",buf) != 0)
+  {
+    strarr[i] = malloc(sizeof(char)*(strlen(buf)+1));
+    strcpy(strarr[i],buf);
+    i++;
+  }
+  fclose(file);
+  return(strarr);
 }
 
 /* ----------------------------------------------- */
@@ -163,7 +192,7 @@ char * * readString(char * filename, int * numString)
 void printInteger(int * arrInteger, int numInteger)
 {
   int i;
-  for (i = 0;i < numInteger, i++)
+  for (i = 0;i < numInteger; i++)
   {
     printf("%d\n",arrInteger[i]);
   }
