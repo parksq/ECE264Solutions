@@ -231,7 +231,7 @@ void freeInteger(int * arrInteger, int numInteger)
 void freeString(char * * arrString, int numString)
 {
   int i;
-  for (i = 0;i < numString; i++;)
+  for (i = 0;i < numString; i++)
   {
     free(arrString[i]);
   }
@@ -258,16 +258,18 @@ void freeString(char * * arrString, int numString)
 
 int saveInteger(char * filename, int * arrInteger, int numInteger)
 {
+  int i;
   FILE * file;
-  file = fopen(file,"w");
+  file = fopen(filename,"w");
   if (file == NULL)
   {
     return 0;
   }
   for( i = 0;i<numInteger;i++)
   {
-    fprintf("%d",arrInteger[i]);
+    fprintf(file,"%d",arrInteger[i]);
   }
+  return 0;
 }
 
 /* ----------------------------------------------- */
