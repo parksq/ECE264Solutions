@@ -206,6 +206,11 @@ void printInteger(int * arrInteger, int numInteger)
  */
 void printString(char * * arrString, int numString)
 {
+  int i;
+  for (i = 0; i < numString; i++)
+  {
+    printf("%s\n",arrString[i]);
+  }
 }
 
 /* ----------------------------------------------- */
@@ -214,6 +219,7 @@ void printString(char * * arrString, int numString)
  */
 void freeInteger(int * arrInteger, int numInteger)
 {
+  free(arrInteger);
 }
 
 /* ----------------------------------------------- */
@@ -224,6 +230,12 @@ void freeInteger(int * arrInteger, int numInteger)
  */
 void freeString(char * * arrString, int numString)
 {
+  int i;
+  for (i = 0;i < numString; i++;)
+  {
+    free(arrString[i]);
+  }
+  free(arrString);
 }
 
 /* ----------------------------------------------- */
@@ -246,6 +258,16 @@ void freeString(char * * arrString, int numString)
 
 int saveInteger(char * filename, int * arrInteger, int numInteger)
 {
+  FILE * file;
+  file = fopen(file,"w");
+  if (file == NULL)
+  {
+    return 0;
+  }
+  for( i = 0;i<numInteger;i++)
+  {
+    fprintf("%d",arrInteger[i]);
+  }
 }
 
 /* ----------------------------------------------- */
