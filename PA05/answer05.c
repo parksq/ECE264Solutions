@@ -63,6 +63,7 @@
 
 int * readInteger(char * filename, int * numInteger)
 {
+printf("\nmytest1\n");
   int size = 0;
   int temp;
   printf("mytest1");
