@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "pa05.h"
-#define MAXIMUM_LENGTH 80
+#define MAXIMUM_LENGTH 180
 
 /*
  * Read a file of integers.
@@ -63,17 +63,15 @@
 
 int * readInteger(char * filename, int * numInteger)
 {
-printf("\nmytest1\n");
   int size = 0;
   int temp;
-  printf("mytest1");
   FILE * file;
   file = fopen(filename,"r");
   if (file == NULL)
   {
     return NULL;
   }
-  while(fscanf(file,"%d",&temp))
+  while(fscanf(file,"%d",&temp) == 1)
   {
     size++;
   }
@@ -81,7 +79,7 @@ printf("\nmytest1\n");
   intarr = malloc(size * sizeof(int));
   fseek(file,0,SEEK_SET);
   int i = 0;
-  while (fscanf(file,"%d",&intarr[i]))
+  while (fscanf(file,"%d",&intarr[i]) == 1)
   {
     i++;
   }
@@ -166,18 +164,22 @@ char * * readString(char * filename, int * numString)
   {
     return NULL;
   }
-  while (fgets(buf,MAXIMUM_LENGTH,file))
+  while (fgets(buf,MAXIMUM_LENGTH,file) != NULL)
   {
     size++;
   }
   *numString = size;
   char * * strarr = malloc(sizeof(char*)*size);
-  if (fscanf(file,"%s",buf) == 0)
+  fseek(file,0,SEEK_SET);
+  if (fgets(buf,MAXIMUM_LENGTH,file) == 0)
+  //if (fscanf(file,"%s",buf) == 0)
   {
     return NULL;
   }
   int i = 0;
-  while (fscanf(file,"%s",buf) != 0)
+  fseek(file,0,SEEK_SET);
+  //while (fscanf(file,"%s",buf) == 1)
+  while (fgets(buf,MAXIMUM_LENGTH,file) != 0)
   {
     strarr[i] = malloc(sizeof(char)*(strlen(buf)+1));
     strcpy(strarr[i],buf);
@@ -194,9 +196,10 @@ char * * readString(char * filename, int * numString)
 void printInteger(int * arrInteger, int numInteger)
 {
   int i;
-  for (i = 0;i < numInteger; i++)
+  printf("%d",arrInteger[0]);
+  for (i = 1;i < numInteger; i++)
   {
-    printf("%d\n",arrInteger[i]);
+    printf("\n%d",arrInteger[i]);
   }
 }
 
@@ -211,7 +214,11 @@ void printString(char * * arrString, int numString)
   int i;
   for (i = 0; i < numString; i++)
   {
-    printf("%s\n",arrString[i]);
+    //printf("%s",arrString[i]);
+  printf("%s", arrString[i]);     
+  int len = strlen(arrString[i]);     
+  if(len == 0 || arrString[i][len-1] != '\n') 
+    printf("\n");
   }
 }
 
@@ -267,9 +274,10 @@ int saveInteger(char * filename, int * arrInteger, int numInteger)
   {
     return 0;
   }
-  for( i = 0;i<numInteger;i++)
+  fprintf(file,"%d",arrInteger[0]);
+  for( i = 1;i<numInteger;i++)
   {
-    fprintf(file,"%d",arrInteger[i]);
+    fprintf(file,"\n%d",arrInteger[i]);
   }
   return 0;
 }
@@ -341,11 +349,13 @@ int compint(const void * p1, const void * p2)
 void sortString(char * * arrString, int numString)
 {
   int compstr(const void *, const void *);
-  qsort(arrString,numString,sizeof(char),compstr);
+  qsort(arrString,numString,sizeof(char*),compstr);
 }
 
 int compstr(const void * s1, const void * s2)
 {
-  return (*(char*)s1 - *(char*)s2);
+  char * a = *(char * *) s1;
+  char * b = *(char * *) s2;
+  return (strcmp(a,b));
 }
 
