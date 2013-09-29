@@ -172,13 +172,11 @@ char * * readString(char * filename, int * numString)
   char * * strarr = malloc(sizeof(char*)*size);
   fseek(file,0,SEEK_SET);
   if (fgets(buf,MAXIMUM_LENGTH,file) == 0)
-  //if (fscanf(file,"%s",buf) == 0)
   {
     return NULL;
   }
   int i = 0;
   fseek(file,0,SEEK_SET);
-  //while (fscanf(file,"%s",buf) == 1)
   while (fgets(buf,MAXIMUM_LENGTH,file) != 0)
   {
     strarr[i] = malloc(sizeof(char)*(strlen(buf)+1));
@@ -214,11 +212,12 @@ void printString(char * * arrString, int numString)
   int i;
   for (i = 0; i < numString; i++)
   {
-    //printf("%s",arrString[i]);
-  printf("%s", arrString[i]);     
-  int len = strlen(arrString[i]);     
-  if(len == 0 || arrString[i][len-1] != '\n') 
-    printf("\n");
+    printf("%s", arrString[i]);     
+    int len = strlen(arrString[i]);     
+    if(len == 0 || arrString[i][len-1] != '\n') 
+    {
+      printf("\n");
+    }
   }
 }
 
