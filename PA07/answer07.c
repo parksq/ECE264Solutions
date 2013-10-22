@@ -131,6 +131,10 @@ Node * List_insert_ascend(Node * head, int value, int index)
   if (head -> index == index)
   {
     head -> value = (head -> value + value);
+    if ((head -> value) == 0)
+    {
+      head = List_delete(head,index);
+    }
     return (head);
   }
   if (head -> index > index)
@@ -162,13 +166,18 @@ Node * List_insert_ascend(Node * head, int value, int index)
  */
 Node * List_delete(Node * head, int index)
 {
-  if(head -> index == index)
+  if (head == NULL)
   {
-    Node * head1 = head -> next;
-    head -> next = head1 -> next;
-    free (head1);
+    return head;
   }
-  return(List_delete(head -> next,index));
+  if (head -> index == index)
+  {
+    Node * temp = head -> next;
+    free(head);
+    return(temp);
+  }
+  head -> next = List_delete(head -> next,index);
+  return(head);
 }
 
 /**
