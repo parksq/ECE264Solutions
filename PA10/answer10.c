@@ -1,6 +1,7 @@
 
 #include "pa10.h"
 #include "tree.h"
+#include "tree.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -244,9 +245,41 @@ int isStackSortable(int * array, int len)
  */
 void genShapes(int k)
 {
-  
+  int array[k];
+  int i;
+  void permute(int*,int,int);
+  for (i=0;i<k;i++)
+  {
+    array[i] = i;
+  }
+  permute(array,k,0);
 }
 
-
-
+void permute(int * array,int k,int i) 
+{ 
+  if (k == i)
+  {
+    if (isStackSortable(array,k))
+    {
+      TreeNode * root = malloc(sizeof(TreeNode));
+      root = Tree_build(array,k);
+      Tree_printShape(root);
+      Tree_destroy(root);
+    }
+    return;
+  }
+  int j = i;
+  int temp;
+  for (j = i; j < k; j++) 
+  { 
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+    permute(array,k,i+1);
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return;
+}
 
