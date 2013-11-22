@@ -1,7 +1,6 @@
 
 #include "pa10.h"
 #include "tree.h"
-#include "tree.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -150,6 +149,7 @@ if (isStackSortable(array,len))
   {
     array[i] = sorted[i];
   }
+  Stack_destroy(stack);
 }
 }
 
@@ -261,8 +261,7 @@ void permute(int * array,int k,int i)
   {
     if (isStackSortable(array,k))
     {
-      TreeNode * root = malloc(sizeof(TreeNode));
-      root = Tree_build(array,k);
+      TreeNode * root = Tree_build(array,k);
       Tree_printShape(root);
       Tree_destroy(root);
     }
