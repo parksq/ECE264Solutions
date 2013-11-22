@@ -13,10 +13,8 @@
  */
 Stack * Stack_create()
 {
-printf("\nCREATE1");
   Stack * stack = malloc(sizeof(Stack));
   stack -> list = NULL;
-printf("\nCREATE2");
   return stack;
 }
 
@@ -51,7 +49,7 @@ void destroy_help(ListNode * head)
  */
 int Stack_isEmpty(Stack * stack)
 {
-  if (stack == NULL);
+  if (stack -> list == NULL)
   {
     return TRUE;
   }
@@ -67,19 +65,14 @@ int Stack_isEmpty(Stack * stack)
  */
 int Stack_pop(Stack * stack)
 {
-printf("\nPOP1");
   if (stack == NULL)
   {
     return -1;
   }
-printf("\nPOP2");
-  ListNode * top = stack -> list;
-printf("\nPOP3");
-  int value = top -> value;
-printf("\nPOP4");
-  stack -> list = top -> next;
-printf("\nPOP5");
-  free(top);
+  ListNode * n = stack -> list -> next;
+  int value = stack -> list -> value;
+  free(stack -> list);
+  stack -> list = n;
   return(value);
 }
 
@@ -92,12 +85,10 @@ printf("\nPOP5");
  */
 void Stack_push(Stack * stack, int value)
 {
-printf("\nPUSH1");
   ListNode * top = malloc(sizeof(ListNode));
   top -> value = value;
   top -> next = stack -> list;
   stack -> list = top;
-printf("\nPUSH2");
   return;
 }
 
@@ -123,21 +114,19 @@ printf("\nPUSH2");
  */
 void stackSort(int * array, int len)
 {
-printf("\nSOT2");
+if (isStackSortable(array,len))
+{
   int i;
   int sorted[len];
   int value;
   int j = 0;
   Stack * stack = Stack_create();
-printf("\nTEST1 array[0]:%d",array[0]);
   Stack_push(stack,array[0]);
-printf("\nTEST2");
   for (i=1;i<len;i++)
   {
-printf("\nLOOP");
-    if(array[i] > stack -> list -> value)
+    if(!Stack_isEmpty(stack) && array[i] > stack -> list -> value)
     {
-      while(array[i] > stack -> list -> value)
+      while(!Stack_isEmpty(stack) && array[i] > stack -> list -> value)
       {
         value = Stack_pop(stack);
         sorted[j] = value;
@@ -150,15 +139,17 @@ printf("\nLOOP");
       Stack_push(stack,array[i]);
     }
   }
-  while(stack != NULL)
+  while (stack -> list != NULL)
   {
-    Stack_pop(stack);
+    value = Stack_pop(stack);
+    sorted[j] = value;
+    j++;
   }
   for (i=0;i<len;i++)
   {
     array[i] = sorted[i];
   }
-printf("\nSORT_DONE");
+}
 }
 
 /**
@@ -184,8 +175,10 @@ int isStackSortable(int * array, int len)
     return FALSE;
   }
   int i;
+  int test_left;
+  int test_right;
   int max = array[0];
-  int index_max;
+  int index_max = 0;
   for (i=0;i<len;i++)
   {
     if (array[i] > max)
@@ -216,6 +209,20 @@ int isStackSortable(int * array, int len)
     {
       return FALSE;
     }
+      test_left = isStackSortable(&array[0],index_max);
+      test_right = isStackSortable(&array[index_max+1],len-1-index_max);
+      if (!test_left || !test_right)
+      {
+        return FALSE;
+      }
+  }
+  else if ((index_max == 0) && (len > 2))
+  {
+    return(isStackSortable(&array[1],len-1));
+  }
+  else if ((index_max == (len-1)) && (len > 2))
+  {
+    return(isStackSortable(array,len-1));
   }
   return TRUE;
 }
@@ -237,7 +244,7 @@ int isStackSortable(int * array, int len)
  */
 void genShapes(int k)
 {
-
+  
 }
 
 
